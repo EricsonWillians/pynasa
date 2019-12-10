@@ -1,7 +1,7 @@
 # pynasa
 A library to ease the development of applications using the NASA public APIs.
 
-## APIs supported
+## APIs Supported
 
 * [EPIC](http://epic.gsfc.nasa.gov/) (The Earth Polychromatic Imaging Camera (EPIC))
 
