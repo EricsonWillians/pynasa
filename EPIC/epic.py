@@ -1,11 +1,15 @@
 import requests
+import shutil
 import json
+import os
+import errno
+from PIL import Image  
 
 class Epic:
 
     EPIC_URL = "https://epic.gsfc.nasa.gov/api/natural"
     EPIC_ARCHIVE_ROOT = "https://epic.gsfc.nasa.gov/archive/natural"
-    EPIC_FILE_TYPE = "png"
+    EPIC_FILE_TYPE = "jpg"
 
     def __init__(self):
         self.json_data = self.fetch_data()
@@ -32,9 +36,26 @@ class Epic:
             links.append(link)
         return links
 
+    def save_links(self):
+        count = 0
+        file_dir = os.path.dirname(os.path.realpath(__file__))
+        for link in self.get_links():
+            filename = f"{file_dir}/out/epic_{count}"
+            if not os.path.exists(os.path.dirname(filename)):
+                try:
+                    os.makedirs(os.path.dirname(filename))
+                except OSError as exc: # Guard against race condition
+                    if exc.errno != errno.EEXIST:
+                        raise
+            response = requests.get(link, stream=True)
+            with open(filename, 'wb') as out_file:
+                shutil.copyfileobj(response.raw, out_file)
+            del response
+            count += 1
+
     def printData(self):
         print(json.dumps(self.fetch_data(), indent=4, sort_keys=True))
 
 if __name__ == "__main__":
     epic = Epic()
-    print(epic.get_links())
+    epic.save_links()
