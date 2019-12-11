@@ -53,7 +53,7 @@ class Epic:
             del response
             count += 1
 
-    def printData(self):
+    def print_data(self):
         print(json.dumps(self.fetch_data(), indent=4, sort_keys=True))
 
 if __name__ == "__main__":
