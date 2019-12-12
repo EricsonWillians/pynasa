@@ -43,8 +43,14 @@ class MarsRover:
 
     def get_links(self):
         photos = []
-        for photo in self.json_data["photos"]:
-            photos.append(photo["img_src"])
+        try:
+            for photo in self.json_data["photos"]:
+                photos.append(photo["img_src"])
+        except Exception as e:
+            print("ERROR: It wasn't possible to download the photos.")
+            print("The response was: ")
+            self.print_data()
+            quit()
         return photos
 
     def save_links(self):
