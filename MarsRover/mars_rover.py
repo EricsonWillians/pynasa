@@ -41,9 +41,32 @@ class MarsRover:
         json_data = json.loads(response.text)
         return json_data
 
+    def get_links(self):
+        photos = []
+        for photo in self.json_data["photos"]:
+            photos.append(photo["img_src"])
+        return photos
+
+    def save_links(self):
+        count = 0
+        file_dir = os.path.dirname(os.path.realpath(__file__))
+        for link in self.get_links():
+            filename = f"{file_dir}/out/{self.rover}_{count}"
+            if not os.path.exists(os.path.dirname(filename)):
+                try:
+                    os.makedirs(os.path.dirname(filename))
+                except OSError as exc:
+                    if exc.errno != errno.EEXIST:
+                        raise
+            response = requests.get(link, stream=True)
+            with open(filename, 'wb') as out_file:
+                shutil.copyfileobj(response.raw, out_file)
+            del response
+            count += 1
+
     def print_data(self):
         print(json.dumps(self.fetch_data(), indent=4, sort_keys=True))
 
 if __name__ == "__main__":
     mars_rover = MarsRover()
-    mars_rover.print_data()
+    mars_rover.save_links()
