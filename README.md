@@ -1,10 +1,18 @@
 # pynasa
 A library to ease the development of applications using the NASA public APIs.
 
+The repository also aims to include softwares to fetch the data, well documented in argparse level.
+
 ## APIs Supported
 
 * [EPIC](http://epic.gsfc.nasa.gov/) (The Earth Polychromatic Imaging Camera (EPIC))
-* Mars Rover Photos (In development)
+* [Mars Rover Photos](https://github.com/chrisccerami/mars-photo-api)
+
+## Available Softwares
+
+* mars_rover.py
+
+Run it using the `--help` parameter in order to get instructions for the available commands.
 
 ## Getting Started
 
