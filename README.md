@@ -10,7 +10,7 @@ The repository also aims to include softwares to fetch the data, well documented
 
 ## Available Softwares
 
-* mars_rover.py
+* rover_photo_downloader.py
 
 Run it using the `--help` parameter in order to get instructions for the available commands.
 
