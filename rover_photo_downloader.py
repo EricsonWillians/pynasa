@@ -28,6 +28,9 @@ if __name__ == "__main__":
     parser.add_argument('--camera', action="store", dest="camera", default="FHAZ", type=str, help="""
         Specify the camera with which the photos were taken.
     """)
+    parser.add_argument('--page', action="store", dest="page", default="FHAZ", type=str, help="""
+        Specify the photo page.
+    """)
     parser.add_argument('--key', action="store", dest="key", default="DEMO_KEY", type=str, help="""
         Specify your NASA public api key.
     """)
@@ -44,14 +47,16 @@ if __name__ == "__main__":
     camera = parsed_args.camera,
     if type(camera) == tuple:
         camera = camera[0]
+    page = parsed_args.page
     api_key = parsed_args.key
 
     print(f"Selected rover: {rover}")
     print(f"Selected sol: {sol}")
     print(f"Selected camera: {camera}")
+    print(f"Selected page: {page}")
     print(f"Fetching data with the API Key: {api_key}")
 
-    mars_rover = MarsRover(rover, sol, camera, api_key)
+    mars_rover = MarsRover(rover, sol, camera, page, api_key)
 
     if parsed_args.list_rovers:
         print_list(MarsRover.ROVER_LIST)
